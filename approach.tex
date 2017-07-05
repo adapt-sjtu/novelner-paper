@@ -43,9 +43,11 @@ After obtaining the above two additional word representations, we combine them w
 We utilize pretrained word embeddings from glove\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}}.
 For all out-of-vocabulary words, we assign their embeddings by sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}\right]$, where \textit{dim} is the dimension of word embeddings.
 
-To sum up, our comprehensive word representations are concatenation of three parts: 1) character-level word representations, 2) syntactical word representation and 3)  original pretrained word embeddings.
+To sum up, our comprehensive word representations are the concatenation of three parts: 1) character-level word representations, 2) syntactical word representation and 3)  original pretrained word embeddings.
 
 \subsection{Bi-LSTM Layer}
-
+LSTM based networks are proven to be effective in sequence labeling problem for they have access to both past and the future contexts. 
+Whereas, hidden states in unidirectional LSTMs only takes information from the past, which may be adequate to classify the sentiment  is a shortcoming for labeling each token.
+Bidirectional LSTMs enable the hidden states 
 \subsection{CRF Layer}
 
