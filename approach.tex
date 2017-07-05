@@ -1,0 +1,51 @@
+\section{Approach}
+\label{sec:approach}
+In this section, we will first introduce the overview of our proposed model and then present each part of the model in detail.
+
+\subsection{Overview}
+\figref{fig:overall} shows the overall structure of our proposed model, 
+instead of solely using the original pretrained word embeddings as the final word representations, 
+we construct a comprehensive word representation for each word in the input sentence.
+This comprehensive word representations contain the character-level sub-word information, the original pretrained word embeddings and multiple syntactical features. 
+Then, we feed them into a Bidirectional LSTM layer, and thus we have a hidden state for each word. 
+The hidden states are considered as the feature vectors of the words by the final CRF layer, from which we can decode the final predicted tag sequence for the input sentence.
+
+\subsection{Comprehensive Word Representations}
+In this subsection, we present our proposed comprehensive word representations. 
+We first build character-level word representations from the embeddings of every characters in each word using a bidirectional LSTM. 
+Then we further incorporate the final word representation with the embedding of the syntactical information of each token, such as the part-of-speech tag, the dependency role, the position in the sentence and the position of the head. \BL{i am not sure about the HEAD. maybe we can find a better description.}
+Finally, we combine the original word embeddings with the above two parts to obtain the final comprehensive word representations.
+
+\subsubsection{Character-level Word Representations}
+In noisy user-generated text analysis, sub-word (character-level) information is much more important than that in normal text analysis for two main reasons:
+1) People are more likely to use novel abbreviations and morphs to mention entities, which are often out of vocabulary and only occur a few times. 
+Thus, solely using the original word-level word embedding as features to represent  words is not adequate to capture the characteristics of such mentions.
+2) Another reason why we have to pay more attention to character-level word representation for noisy text is that it is can capture the orthographic or morphological information of both formal words and Internet slang.
+\footnote{\BL{the abbr. examples and morph stuff should be mentioned in the introduction part as one of the reasons why twitter NER is hard and cite Heng Ji's paper}} 
+
+There are two main network structures to make use of character embeddings: 
+one is CNN (Ma and Hovy, 2016 \cite{} ) and the other is BiLSTM(Lample et al. 2016).
+BiLSTM turns to be better in our experiment on development dataset and we will discuss the reason in \secref{sec:eval}.
+Thus, we follow Lample et al. (2016) to build a BiLSTM network to encode the characters in each token as \figref{arg1} shows. \BL{see Figure 4 in Lample's paper.}
+We finally concatenate the forward embedding and backward embedding to the final character-level word representation.
+%such as ``kktny'' meaning \textit{Kourtney and Kim Take New York}, ``himym'' meaning ``How I Met Your Mother''. 
+%Also, people create new and emerging morphs for entities for fun or avoiding censorship, which a
+
+
+%http://ac.els-cdn.com/S1877050917306580/1-s2.0-S1877050917306580-main.pdf?_tid=139e4e02-617c-11e7-9a7c-00000aab0f27&acdnat=1499257299_dd0b70d56f16720625b3ac5eec4d7284
+
+\subsubsection{Syntactical Word Representations}
+We argue that the syntactical information, such as POS tag and dependency role, should also be explicitly considered as context features of each token in the sentence. 
+\BL{Jessie plz introduce how we extract the twitter pos tags etc. from the Tweebo parser. Better show an example }.
+ 
+\subsubsection{Combination with Word-level Word Representations}
+After obtaining the above two additional word representations, we combine them with the original word-level word representations, which are just traditional word embeddings. 
+We utilize pretrained word embeddings from glove\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}}.
+For all out-of-vocabulary words, we assign their embeddings by sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}\right]$, where \textit{dim} is the dimension of word embeddings.
+
+To sum up, our comprehensive word representations are concatenation of three parts: 1) character-level word representations, 2) syntactical word representation and 3)  original pretrained word embeddings.
+
+\subsection{Bi-LSTM Layer}
+
+\subsection{CRF Layer}
+

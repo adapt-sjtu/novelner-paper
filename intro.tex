@@ -1,0 +1,21 @@
+\section{Introduction}
+\label{sec:intro}
+Named entity recognition (NER) is one of the first and most important steps in Information Extraction (IE) pipelines. Generally speaking, it is to identify mentions of entities (persons, locations, organizations, etc.)
+within unstructured text. However, the diverse and noisy style of user-generated social media text presents serious challenges.
+ 
+Twitter NER is challenging because of the
+unique characteristics of tweets. For instance, tweets are typically short as the number of characters in a
+particular tweet is restricted to 140; hence, the contextual information is limited. In addition, the use of
+colloquial language makes it difficult for existing NER approaches a general domain, such as newswire
+to be reused~\cite{baldwin2015shared}. Consequently, state-of-the-art NER software (e.g. Standford NER)
+is less effective on Twitter NER tasks~\cite{derczynski2015analysis}.
+Due to the informal and contemporary nature of these micro-posts, performance still lags far behind that on formal text genres such as newswire. 
+
+What makes Twitter NER more challenging is the fact that there are large amounts of rare and emerging named entities among the text.
+This shared task focuses on identifying unusual, previously-unseen entities in the context of emerging discussions. Named entities form the basis of many modern approaches to other tasks (like event clustering and summarization), but recall on them is a real problem in noisy text - even among annotators. This drop tends to be due to novel entities and surface forms. Take for example the tweet ``so.. \textit{kktny} in 30 mins?'' - even human experts find entity \textit{kktny} hard to detect and resolve. It actually refers to a new TV series called ``\textit{Kourtney and Kim Take New York}''. This task will evaluate the ability to detect and classify novel, emerging, singleton named entities in noisy text.
+
+Detecting commonly-mentioned entities tends to be easier than the rarer, more unusual surface forms. Similarly, entities with unusual surface forms, or that are simply rare, tend to be tougher to detect~\cite{augenstein2017generalisation}, with recall being a significant problem in rapidly-changing text types~\cite{derczynski2015analysis}. However, the entities that are common in newly-emerging texts such as newswire or social media are often new, not having been mentioned in prior datasets. This poses a challenge to NER systems, where in many deployments, unusual, previously-unseen entities need to be detected reliably and with high recall. In the shared task, we are provided with turbulent data containing few repeated entities, drawn from rapidly-changing text types or sources of non-mainstream entities.
+
+The goal of this paper is to present a novel Multi-channel BiLSTM-CRF neural network approach for Twitter NER. The system is given the emphasize on the rare and emerging named entities that have few occurrences in the Twitter corpus. The system is to identify the span of named entities from given tweet texts, and classify the type of the NEs into 6 categories, namely Person, Location (including GPE, facility), Corporation, Consumer good (tangible goods, or well-defined services), Creative work (song, movie, book, and so on) and Group (subsuming music band, sports team, and non-corporate organizations).
+
+
