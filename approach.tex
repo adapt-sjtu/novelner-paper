@@ -41,7 +41,7 @@ We argue that the syntactical information, such as POS tag and dependency role, 
 \subsubsection{Combination with Word-level Word Representations}
 After obtaining the above two additional word representations, we combine them with the original word-level word representations, which are just traditional word embeddings. 
 We utilize pretrained word embeddings from glove\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}}.
-For all out-of-vocabulary words, we assign their embeddings by sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}\right]$, where \textit{dim} is the dimension of word embeddings.
+For all out-of-vocabulary words, we assign their embeddings by sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}~\right]$, where \textit{dim} is the dimension of word embeddings.
 
 To sum up, our comprehensive word representations are the concatenation of three parts: 1) character-level word representations, 2) syntactical word representation and 3)  original pretrained word embeddings.
 
@@ -59,7 +59,7 @@ We know that
 
 $$\overleftarrow{\mathbf{h_i}}= \text{lstm}(\mathbf{x_i}, \overleftarrow{\mathbf{h_{i-1}}})~\text{,}~\overrightarrow{\mathbf{h_i}}= \text{lstm}(\mathbf{x_i}, \overrightarrow{\mathbf{h_{i+1}}})$$ 
 
-$$\mathbf{h_i} = \left[ \overleftarrow{\mathbf{h_i}} ; \overrightarrow{\mathbf{h_i}} \right]$$
+$$\mathbf{h_i} = \left[~\overleftarrow{\mathbf{h_i}}~;~\overrightarrow{\mathbf{h_i}}~\right]$$
 
 
 \subsection{CRF Layer}
@@ -72,20 +72,20 @@ Formally, we take the above sequence of hidden states  $ \mathbf{h} = ( \mathbf{
 We denote $\mathcal{Y}(\mathbf{h})$ as the set of all possible label sequences.
 Then we derive the conditional probability of the output sequence given the input hidden state sequence is 
 
-{\footnotesize $$ p(\mathbf{y}|\mathbf{h}; \mathbf{W},\mathbf{b}) 
+{\scriptsize $$ p(\mathbf{y}|\mathbf{h}; \mathbf{W},\mathbf{b}) 
 = \frac{\prod_{i=1}^n \exp(\mathbf{W}^T_{y_{i-1},y_{i}}\mathbf{h} + \mathbf{b}_{y_{i-1},y_{i}})}
 { \sum_{\mathbf{y'} \in \mathcal{Y}(\mathbf{h})} \prod_{i=1}^n \exp(\mathbf{W}^T_{y'_{i-1},y'_{i}}\mathbf{h} + \mathbf{b}_{y'_{i-1},y'_{i}})} 
 $$
 }
 
-, where $\mathbf W$ and $\mathbf b$ are the two weight matrices and the subscription indicates that we extract the weight vector for the given label pair $(y_{i-1},y_i)$.
+, where $\mathbf W$ and $\mathbf b$ are the two weight matrices and the subscription indicates that we extract the weight vector for the given label pair $(y_{i-1},y_i)$. 
+We randomly initialize them with uniform samples from $\left[-\sqrt{\frac{6}{r+c}}, +\sqrt{\frac{6}{r+c}}}~\right]$, $r$ and $c$ are the number of the rows and columns, following Glorot and Bengio (2010).
 
 To train the CRF layer, we use the classic maximum conditional likelihood estimation to train our model. 
 The final log-likelihood with respect to the weight matrices is 
 
 $$ L(\mathbf{W},\mathbf{b}) = \sum_{(\mathbf{h_i}, \mathbf{y_i})}  \log p(\mathbf{y_i}|\mathbf{h_i}; \mathbf{W},\mathbf{b}) $$
-
-
+~\\~
 Finally, we adopt the Viterbi algorithm for training the CRF layer and the decoding the optimal output sequence $\mathbf{y^*}$.
 
 
