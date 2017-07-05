@@ -45,9 +45,52 @@ For all out-of-vocabulary words, we assign their embeddings by sampling from ran
 
 To sum up, our comprehensive word representations are the concatenation of three parts: 1) character-level word representations, 2) syntactical word representation and 3)  original pretrained word embeddings.
 
-\subsection{Bi-LSTM Layer}
+\subsection{BiLSTM Layer}
 LSTM based networks are proven to be effective in sequence labeling problem for they have access to both past and the future contexts. 
 Whereas, hidden states in unidirectional LSTMs only takes information from the past, which may be adequate to classify the sentiment  is a shortcoming for labeling each token.
-Bidirectional LSTMs enable the hidden states 
+Bidirectional LSTMs enable the hidden states to capture both historical and future context information and then to label a token.
+
+Mathematically, the input of this BiLSTM layer is a sequence of comprehensive word representations (vectors) for the tokens of the input sentence,  denoted as 
+$( \mathbf{x_1}, \mathbf{x_2},...,\mathbf{x_n})$. 
+The output of this BiLSTM layer is a sequence of the hidden states for each input word vectors, denoted as 
+$( \mathbf{h_1}, \mathbf{h_2},...,\mathbf{h_n})$. 
+Each final hidden state is the concatenation of the forward $\overleftarrow{\mathbf{h_i}}$ and backward $\overrightarrow{\mathbf{h_i}}$ hidden states.
+We know that 
+
+$$\overleftarrow{\mathbf{h_i}}= \text{lstm}(\mathbf{x_i}, \overleftarrow{\mathbf{h_{i-1}}})~\text{,}~\overrightarrow{\mathbf{h_i}}= \text{lstm}(\mathbf{x_i}, \overrightarrow{\mathbf{h_{i+1}}})$$ 
+
+$$\mathbf{h_i} = \left[ \overleftarrow{\mathbf{h_i}} ; \overrightarrow{\mathbf{h_i}} \right]$$
+
+
 \subsection{CRF Layer}
+It is almost always beneficial to consider the correlations between two between current label and neighboring labels since there are many syntactical constrains in natural language sentences. 
+For example, I-PERSON will never follow a B-GROUP. 
+If we simply feed the above mentioned hidden states independently to a Softmax layer to predict the labels, then such constrains will not be more likely to be broken. 
+Linear-chain Conditional Random Field is the most popular way to control the structure prediction and its basic idea is to use a series of potential function to approximate the conditional probability of the output label sequence given the input word sequence. 
+
+Formally, we take the above sequence of hidden states  $ \mathbf{h} = ( \mathbf{h_1}, \mathbf{h_2},...,\mathbf{h_n})$ as our input to the CRF layer, and its output is our final prediction label sequence $\mathbf{y} = ( {y_1}, {y_2},...,{y_n})$, where $y_i$ is in the set of all possible labels. 
+We denote $\mathcal{Y}(\mathbf{h})$ as the set of all possible label sequences.
+Then we derive the conditional probability of the output sequence given the input hidden state sequence is 
+
+{\footnotesize $$ p(\mathbf{y}|\mathbf{h}; \mathbf{W},\mathbf{b}) 
+= \frac{\prod_{i=1}^n \exp(\mathbf{W}^T_{y_{i-1},y_{i}}\mathbf{h} + \mathbf{b}_{y_{i-1},y_{i}})}
+{ \sum_{\mathbf{y'} \in \mathcal{Y}(\mathbf{h})} \prod_{i=1}^n \exp(\mathbf{W}^T_{y'_{i-1},y'_{i}}\mathbf{h} + \mathbf{b}_{y'_{i-1},y'_{i}})} 
+$$
+}
+
+, where $\mathbf W$ and $\mathbf b$ are the two weight matrices and the subscription indicates that we extract the weight vector for the given label pair $(y_{i-1},y_i)$.
+
+To train the CRF layer, we use the classic maximum conditional likelihood estimation to train our model. 
+The final log-likelihood with respect to the weight matrices is 
+
+$$ L(\mathbf{W},\mathbf{b}) = \sum_{(\mathbf{h_i}, \mathbf{y_i})}  \log p(\mathbf{y_i}|\mathbf{h_i}; \mathbf{W},\mathbf{b}) $$
+
+
+Finally, we adopt the Viterbi algorithm for training the CRF layer and the decoding the optimal output sequence $\mathbf{y^*}$.
+
+
+
+
+
+
 
