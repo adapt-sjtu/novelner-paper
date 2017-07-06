@@ -1,15 +1,20 @@
 \section{Introduction}
 \label{sec:intro}
-Named entity recognition (NER) is one of the first and most important steps in Information Extraction (IE) pipelines. Generally speaking, it is to identify mentions of entities (persons, locations, organizations, etc.)
-within unstructured text. However, the diverse and noisy style of user-generated social media text presents serious challenges.
- 
-Twitter NER is challenging because of the
-unique characteristics of tweets. For instance, tweets are typically short as the number of characters in a
-particular tweet is restricted to 140; hence, the contextual information is limited. In addition, the use of
-colloquial language makes it difficult for existing NER approaches a general domain, such as newswire
-to be reused~\cite{baldwin2015shared}. Consequently, state-of-the-art NER software (e.g. Standford NER)
-is less effective on Twitter NER tasks~\cite{derczynski2015analysis}.
-Due to the informal and contemporary nature of these micro-posts, performance still lags far behind that on formal text genres such as newswire. 
+Named entity recognition (NER) is one of the first and most important steps in Information Extraction pipelines. 
+Generally, it is to identify mentions of entities (persons, locations, organizations, etc.)
+within unstructured text. 
+However, the diverse and noisy nature of user-generated content as well as the emerging entities with novel surface forms make NER in social media messages more challenging.
+
+The first challenge brought by user-generated content
+%such as Twitter, Reddit and YouTube, 
+is its unique characteristics: short, noisy and informal. 
+For instance, tweets are typically short since the number of characters is restricted to 140 and people indeed tend to pose short messages even in social media without such restrictions, such as YouTube comments and Reddit.
+\footnote{The average length of the sentences in this shared task is about 20 tokens per sentence.}
+Hence, the contextual information in a sentence is very limited.
+Apart from that, 
+the use of colloquial language makes it more difficult for existing NER approaches to be reused, which mainly focus on a general domain and formal text ~\cite{baldwin2015shared, derczynski2015analysis}. 
+%State-of-the-art NER softwares (e.g. Standford Corenlp) are less effective on such social media messages~\cite{derczynski2015analysis}.
+%Due to the informal and contemporary nature of these micro-posts, performance still lags far behind that on formal text genres such as newswire. 
 
 What makes Twitter NER more challenging is the fact that there are large amounts of rare and emerging named entities among the text.
 This shared task focuses on identifying unusual, previously-unseen entities in the context of emerging discussions. Named entities form the basis of many modern approaches to other tasks (like event clustering and summarization), but recall on them is a real problem in noisy text - even among annotators. This drop tends to be due to novel entities and surface forms. Take for example the tweet ``so.. \textit{kktny} in 30 mins?'' - even human experts find entity \textit{kktny} hard to detect and resolve. It actually refers to a new TV series called ``\textit{Kourtney and Kim Take New York}''. This task will evaluate the ability to detect and classify novel, emerging, singleton named entities in noisy text.
