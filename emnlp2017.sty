@@ -359,13 +359,14 @@
 %% Title and Authors %%
 
 \newcommand\outauthor{
-    \begin{tabular}[t]{c}
-	\ifemnlpfinal 
-	     \bf\@author
-	\else 
-		% Avoiding common accidental de-anonymization issue. --MM
-     		\bf Anonymous EMNLP submission
-	\fi
+    \begin{tabular}[t]{c} 
+    	\bf\@author 
+%	\ifemnlpfinal 
+%	     \bf\@author
+%	\else 
+%		% Avoiding common accidental de-anonymization issue. --MM
+%     		\bf Anonymous EMNLP submission
+%	\fi
     \end{tabular}}
 
 % Changing the expanded titlebox for submissions to 2.5 in (rather than 6.5cm)
