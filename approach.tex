@@ -18,7 +18,7 @@ The hidden states are considered as the feature vectors of the words by the fina
 \subsection{Comprehensive Word Representations}
 In this subsection, we present our proposed comprehensive word representations. 
 We first build character-level word representations from the embeddings of every characters in each word using a bidirectional LSTM. 
-Then we further incorporate the final word representation with the embedding of the syntactical information of each token, such as the part-of-speech tag, the dependency role, the position in the sentence and the position of the head. \BL{i am not sure about the HEAD. maybe we can find a better description.}
+Then we further incorporate the final word representation with the embedding of the syntactical information of each token, such as the part-of-speech tag, the dependency role, the word position in the sentence and the head position. 
 Finally, we combine the original word embeddings with the above two parts to obtain the final comprehensive word representations.
 
 \subsubsection{Character-level Word Representations}
@@ -29,8 +29,8 @@ Thus, solely using the original word-level word embedding as features to represe
 
 There are two main network structures to make use of character embeddings: 
 one is CNN (Ma and Hovy, 2016 \cite{} ) and the other is BiLSTM(Lample et al. 2016).
-BiLSTM turns to be better in our experiment on development dataset and we will discuss the reason in \secref{sec:eval}.
-Thus, we follow Lample et al. (2016) to build a BiLSTM network to encode the characters in each token as \figref{arg1} shows.
+BiLSTM turns to be better in our experiment on development dataset.
+Thus, we follow Lample et al. (2016) to build a BiLSTM network to encode the characters in each token as \figref{fig:comprehensive} shows.
 We finally concatenate the forward embedding and backward embedding to the final character-level word representation.
 \begin{figure}[th!]
 	\includegraphics[width=\columnwidth]{figures/comprehensive}
@@ -38,15 +38,17 @@ We finally concatenate the forward embedding and backward embedding to the final
 	\label{fig:comprehensive}
 \end{figure}
 \subsubsection{Syntactical Word Representations}
-We argue that the syntactical information, such as POS tag and dependency role, should also be explicitly considered as context features of each token in the sentence. 
+We argue that the syntactical information, such as POS tags and dependency roles, should also be explicitly considered as contextual features of each token in the sentence. 
 
-Popular opensource software called TweetNLP and TweeboParser~\cite{owoputi2013improved,kong2014dependency} are used to generate such syntactical tags for each token given a tweet.
-Given the nature of the noisy tweet text, a new set of POS tags and dependency trees are used in the tool, called Tweebank~\cite{gimpel2011part}. See~\tabref{tbl:pos} for an example POS tagging. Since a tweet often contains more than one utterance, the output of TweeboParser will often be a multi-rooted graph over the tweet. 
+TweetNLP and TweeboParser~\cite{owoputi2013improved,kong2014dependency} are two popular software to generate such syntactical tags for each token given a tweet.
+Given the nature of the noisy tweet text, a new set of POS tags and dependency trees are used in the tool, called Tweebank~\cite{gimpel2011part}.
+See~\tabref{tbl:pos} for an example POS tagging. 
+Since a tweet often contains more than one utterance, the output of TweeboParser will often be a multi-rooted graph over the tweet. 
 
-Head position embeddings are taken into account while calculating these embedding vector to further enrich the dependency information. Also, many elements in tweets have no syntactic function. These include, in many cases, hashtags, URLs, and emoticons. It tries to exclude these tokens from the parse tree, resulting a head index of -1.
+Word position embedding are included as well as it is widely used in other similar tasks, like relation classification~\cite{xu2016improved}. 
+Also, head position embeddings are taken into account while calculating these embedding vectors to further enrich the dependency information. It tries to exclude these tokens from the parse tree, resulting a head index of -1.
 
-Word position embedding are included as well as it is widely used in other similar tasks, like relation classification~\cite{xu2016improved}.
-After calculating all 4 types of embedding vectors (POS, dependency role, position, head) for each token, we concatenate them to form the syntactical word representation.
+After calculating all 4 types of embedding vectors (POS tags, dependency roles, word positions, head positions) for every tokens, we concatenate them to form a syntactical word representation.
 \begin{table}[th]
 	\small
 	\centering
@@ -60,7 +62,6 @@ After calculating all 4 types of embedding vectors (POS, dependency role, positi
 		Head & 0 &-1& 0& 3& 6& 4& -1 \\ \hline
 \end{tabular}
 \end{table}
-
 
 \subsubsection{Combination with Word-level Word Representations}
 After obtaining the above two additional word representations, we combine them with the original word-level word representations, which are just traditional word embeddings. 
