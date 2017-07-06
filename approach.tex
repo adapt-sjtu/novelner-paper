@@ -58,8 +58,6 @@ Given the nature of the noisy tweet text, a new set of POS tags and dependency r
 
 \subsubsection{Combination with Word-level Word Representations}
 After obtaining the above two additional word representations, we combine them with the original word-level word representations, which are just traditional word embeddings. 
-We utilize pretrained word embeddings from glove\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}}.
-For all out-of-vocabulary words, we assign their embeddings by sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}~\right]$, where \textit{dim} is the dimension of word embeddings. The random initialization of character embeddings are in the same way.
 
 To sum up, our comprehensive word representations are the concatenation of three parts: 1) character-level word representations, 2) syntactical word representation and 3)  original pretrained word embeddings.
 
@@ -97,9 +95,6 @@ $$
 }
 
 , where $\mathbf W$ and $\mathbf b$ are the two weight matrices and the subscription indicates that we extract the weight vector for the given label pair $(y_{i-1},y_i)$. 
-We randomly initialize them with uniform samples from 
-$\left[-\sqrt{\frac{6}{r+c}}, +\sqrt{\frac{6}{r+c}}~\right]$, 
-$r$ and $c$ are the number of the rows and columns, following Glorot and Bengio (2010).
 
 To train the CRF layer, we use the classic maximum conditional likelihood estimation to train our model. 
 The final log-likelihood with respect to the weight matrices is 
