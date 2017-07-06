@@ -28,9 +28,9 @@ Thus, solely using the original word-level word embedding as features to represe
 2) Another reason why we have to pay more attention to character-level word representation for noisy text is that it is can capture the orthographic or morphological information of both formal words and Internet slang. 
 
 There are two main network structures to make use of character embeddings: 
-one is CNN (Ma and Hovy, 2016 \cite{} ) and the other is BiLSTM(Lample et al. 2016).
+one is CNN \cite{DBLP:conf/acl/MaH16} and the other is BiLSTM\cite{DBLP:conf/naacl/LampleBSKD16}.
 BiLSTM turns to be better in our experiment on development dataset.
-Thus, we follow Lample et al. (2016) to build a BiLSTM network to encode the characters in each token as \figref{fig:comprehensive} shows.
+Thus, we follow Lample et al. (\citeyear{DBLP:conf/naacl/LampleBSKD16}) to build a BiLSTM network to encode the characters in each token as \figref{fig:comprehensive} shows.
 We finally concatenate the forward embedding and backward embedding to the final character-level word representation.
 \begin{figure}[th!]
 	\includegraphics[width=\columnwidth]{figures/comprehensive}
