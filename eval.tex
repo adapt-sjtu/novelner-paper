@@ -1,2 +1,22 @@
-\section{Evaluation}
+\section{Experiments}
 \label{sec:eval}
+
+\subsection{Parameter Initialization}
+For word-level word representation (i.e. the lookup table), 
+we utilize the pretrained word embeddings from glove\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}}.
+For all out-of-vocabulary words, we assign their embeddings by randomly sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}~\right]$, where \textit{dim} is the dimension of word embeddings. The random initialization of character embeddings are in the same way.
+We randomly initialize the weight matrices $\mathbf{W}$ and $\mathbf{b}$ with uniform samples from 
+$\left[-\sqrt{\frac{6}{r+c}}, +\sqrt{\frac{6}{r+c}}~\right]$, 
+$r$ and $c$ are the number of the rows and columns, following Glorot and Bengio (2010), and all LSTM hidden states are initialized to be zero, following . 
+
+
+\subsection{Hyper Parameter Tuning}
+We tuned the dimension of word-level embeddings from \{50,\textbf{100},200\}, character embeddings from \{10,\textbf{25},50\}, character BiLSTM hidden states (i.e. the character level word representation)  from  \{20,\textbf{50},100\}. 
+We finally choose the bold ones.
+The dimension of POS Tag, Dependecny Roles, position and \BL{head} are all 5.
+
+As for learning method, we compare the traditional SGD and Adam.
+We found that Adam performs always better than SGD, and we tune the learning rate form \{1e-2,\textbf{1e-3},1e-4\}.
+
+\subsection{Comparison} 
+
