@@ -47,7 +47,7 @@ Popular opensource software called TweetNLP and TweeboParser~\cite{owoputi2013im
 Given the nature of the noisy tweet text, a new set of POS tags and dependency trees are used in the tool, called Tweebank~\cite{gimpel2011part}. See~\tabref{tbl:pos} for an example POS tagging. Since a tweet often contains more than one utterance, the output of TweeboParser will often be a multi-rooted graph over the tweet.  Head index of the token is taken into account while calculating these embedding vector to further enrich the dependency information. Also, many elements in tweets have no syntactic function. These include, in many cases, hashtags, URLs, and emoticons. It tries to exclude these tokens from the parse tree, resulting a head index of -1.
 Position embedding is included as well as it is widely used in other similar tasks, like relation classification~\cite{xu2016improved}.
 After calculating all 4 types of embedding vectors (POS, dependency role, position, head) for each token, we concatenate them to form the syntactical word representation.
-\begin{table}[]
+\begin{table}[th]
 	\centering
 	\caption{Example of POS tagging for tweets.}
 	\label{tbl:pos}

@@ -19,16 +19,22 @@ As for learning method, we compare the traditional SGD and Adam.
 We found that Adam performs always better than SGD, and we tune the learning rate form \{1e-2,\textbf{1e-3},1e-4\}.
 
 \subsection{Results} 
-In comparison with other participants, the results are shown in 
+In comparison with other participants, the results are shown in~\tabref{tbl:compare}.
 
+\begin{table}[th]
+	\centering
+	\caption{Result comparison}
+	\label{tbl:compare}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Team                & F1 (entity)    & F1 (surface form) \\ \hline
+		MIC-CIS             & 36.90          & 50.38             \\ \hline
+		Arcada              & 40.09          & 56.60             \\ \hline
+		Drexel-CCI          & 26.81          & 59.92             \\ \hline
+		\textbf{SJTU-Adapt} & \textbf{41.22} & \textbf{60.00}    \\ \hline
+		FLYTXT              & 38.10          & 57.64             \\ \hline
+		SpinningBytes       & 41.76          & 57.98             \\ \hline
+		UH-RiTUAL           & 41.90          & 66.59             \\ \hline
+	\end{tabular}
+\end{table}
 
-Team	F1 (entity)	F1 (surface form)
-MIC-CIS	36.90	50.38
-Arcada	40.09	56.60
-Drexel-CCI	26.81	59.92
-SJTU-Adapt	41.22	60.00
-FLYTXT	38.10	57.64
-SpinningBytes	41.76	57.98
-UH-RiTUAL	41.90	66.59
-
-\BL{jessie plz add a table here }
