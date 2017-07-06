@@ -16,6 +16,12 @@ This comprehensive word representations contain the character-level sub-word inf
 Then, we feed them into a Bidirectional LSTM layer, and thus we have a hidden state for each word. 
 The hidden states are considered as the feature vectors of the words by the final CRF layer, from which we can decode the final predicted tag sequence for the input sentence.
 
+\begin{figure}
+	\includegraphics[width=\columnwidth]{figures/comprehensive}
+	\caption{Illustration of comprehensive word representation.}
+	\label{fig:comprehensive}
+\end{figure}
+
 \subsection{Comprehensive Word Representations}
 In this subsection, we present our proposed comprehensive word representations. 
 We first build character-level word representations from the embeddings of every characters in each word using a bidirectional LSTM. 
