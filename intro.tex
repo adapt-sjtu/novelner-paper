@@ -17,13 +17,11 @@ the use of colloquial language makes it more difficult for existing NER approach
 %Due to the informal and contemporary nature of these micro-posts, performance still lags far behind that on formal text genres such as newswire. 
 
 Another challenge of NER in noisy text is the fact that there are large amounts of emerging named entities and rare surface forms among the user-generated text, which tend to be tougher to detect~\cite{augenstein2017generalisation} and recall thus is a significant problem~\cite{derczynski2015analysis}.
-By way of example, the tweet ``so.. \textit{kktny} in 30 mins?'' - even human experts find entity \textit{kktny} hard to recognize. 
-It actually refers to a new TV series called ``\textit{Kourtney and Kim Take New York}''. 
-Additionally, it is quite often that netizens mention entities using morphs, which are rare surface forms. 
-For example, ``\textit{black mamba}'', the name for a
-highly venomous snake, is actually a morph that
-Kobe Bryant created for himself because of his
-agility and aggressiveness in playing basketball
+By way of example, the surface form ``\textit{kktny}'', in the tweet ``so.. \textit{kktny} in 30 mins?'',
+actually refers to a new TV series called ``\textit{Kourtney and Kim Take New York}'', which even human experts found hard to recognize. 
+Additionally, it is quite often that netizens mention entities using rare morphs as surface forms. 
+For example, ``\textit{black mamba}'', the name for a venomous snake, is actually a morph that
+Kobe Bryant created for himself for his aggressiveness in playing basketball
 games \cite{DBLP:conf/acl/ZhangHPLLJKWSHY15}.
 Such morphs and rare surface forms are also very difficult to detect and classify. 
 
@@ -31,6 +29,9 @@ Such morphs and rare surface forms are also very difficult to detect and classif
 %
 %Detecting commonly-mentioned entities tends to be easier than the rarer, more unusual surface forms. Similarly, entities with unusual surface forms, or that are simply rare, tend to be tougher to detect~\cite{augenstein2017generalisation}, with recall being a significant problem in rapidly-changing text types~\cite{derczynski2015analysis}. However, the entities that are common in newly-emerging texts such as newswire or social media are often new, not having been mentioned in prior datasets. This poses a challenge to NER systems, where in many deployments, unusual, previously-unseen entities need to be detected reliably and with high recall. In the shared task, we are provided with turbulent data containing few repeated entities, drawn from rapidly-changing text types or sources of non-mainstream entities.
 
-The goal of this paper is to present a novel Multi-channel BiLSTM-CRF neural network approach for Twitter NER. The system is given the emphasize on the rare and emerging named entities that have few occurrences in the Twitter corpus. The system is to identify the span of named entities from given tweet texts, and classify the type of the NEs into 6 categories, namely Person, Location (including GPE, facility), Corporation, Consumer good (tangible goods, or well-defined services), Creative work (song, movie, book, and so on) and Group (subsuming music band, sports team, and non-corporate organizations).
+The goal of this paper is to present our system participating in the \textit{Novel and Emerging Named Entity Recognition} shared task at the EMNLP 2017 Workshop on Noisy User-generated Text (W-NUT), which aims for NER in such noisy user-generated text. .\footnote{\url{http://noisy-text.github.io/2017/emerging-rare-entities.html}}
+We investigate a multi-channel BiLSTM-CRF neural network model for , using more 
+%The system is given the emphasize on the rare and emerging named entities that have few occurrences in the Twitter corpus. 
+%The system is to identify the span of named entities from given tweet texts, and classify the type of the NEs into 6 categories, namely Person, Location (including GPE, facility), Corporation, Consumer good (tangible goods, or well-defined services), Creative work (song, movie, book, and so on) and Group (subsuming music band, sports team, and non-corporate organizations).
 
 
