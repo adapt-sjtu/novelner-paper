@@ -42,7 +42,8 @@ We finally concatenate the forward embedding and backward embedding to the final
 
 \subsubsection{Syntactical Word Representations}
 We argue that the syntactical information, such as POS tag and dependency role, should also be explicitly considered as context features of each token in the sentence. 
-\BL{Jessie plz introduce how we extract the twitter pos tags etc. from the Tweebo parser. Better show an example }.
+A popular software suite called TweetNLP~\cite{owoputi2013improved,kong2014dependency} is used to generate such syntactical tags for each token given a tweet.
+Given the nature of the noisy tweet text, a new set of POS tags and dependency roles are used in the tool, called Tweebank~\cite{gimpel2011part}. Since a tweet often contains more than one utterance, the output of TweeboParser will often be a multi-rooted graph over the tweet. Also, many elements in tweets have no syntactic function. These include, in many cases, hashtags, URLs, and emoticons. It tries to exclude these tokens from the parse tree.
  
 \subsubsection{Combination with Word-level Word Representations}
 After obtaining the above two additional word representations, we combine them with the original word-level word representations, which are just traditional word embeddings. 
