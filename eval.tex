@@ -1,7 +1,7 @@
 \section{Experiments}
 \label{sec:eval}
 In this section, we discuss the implementation details of our system such as hyper parameter tuning and the initialization of our model parameters. 
-\footnote{The detailed description of the evaluation metric and the dataset can refer to \url{http://noisy-text.github.io/2017/emerging-rare-entities.html}}
+\footnote{The detailed description of the evaluation metric and the dataset are shown in \url{http://noisy-text.github.io/2017/emerging-rare-entities.html}}
 \subsection{Parameter Initialization}
 For word-level word representation (i.e. the lookup table), 
 we utilize the pretrained word embeddings from glove\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}}.
@@ -27,16 +27,16 @@ In comparison with other participants, the results are shown in~\tabref{tbl:comp
 	\centering
 	\caption{Result comparison}
 	\label{tbl:compare}
-	\begin{tabular}{|l|l|l|}
+	\begin{tabular}{|c|c|c|}
 		\hline
-		Team                & F1 (entity)    & F1 (surface form) \\ \hline
+		\textbf{Team}                & \textbf{F1 (entity) }   & \textbf{F1 (surface form)} \\ \hline
 		MIC-CIS             & 36.90          & 50.38             \\ \hline
 		Arcada              & 40.09          & 56.60             \\ \hline
 		Drexel-CCI          & 26.81          & 59.92             \\ \hline
-		\textbf{SJTU-Adapt} & \textbf{41.22} & \textbf{60.00}    \\ \hline
+		\textbf{Ours} & \textbf{41.22} & \textbf{60.00}    \\ \hline
 		FLYTXT              & 38.10          & 57.64             \\ \hline
 		SpinningBytes       & 41.76          & 57.98             \\ \hline
-		UH-RiTUAL           & 41.90          & 66.59             \\ \hline
+		UH-RiTUAL           & \textbf{41.90   }       & \textbf{66.59 }            \\ \hline
 	\end{tabular}
 \end{table}
 

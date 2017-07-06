@@ -34,7 +34,7 @@ Thus, we follow Lample et al. (2016) to build a BiLSTM network to encode the cha
 We finally concatenate the forward embedding and backward embedding to the final character-level word representation.
 \begin{figure}[th!]
 	\includegraphics[width=\columnwidth]{figures/comprehensive}
-	\caption{Illustration of comprehensive word representation.}
+	\caption{Illustration of comprehensive word representations.}
 	\label{fig:comprehensive}
 \end{figure}
 \subsubsection{Syntactical Word Representations}
@@ -95,12 +95,12 @@ Formally, we take the above sequence of hidden states  $ \mathbf{h} = ( \mathbf{
 We denote $\mathcal{Y}(\mathbf{h})$ as the set of all possible label sequences.
 Then we derive the conditional probability of the output sequence given the input hidden state sequence is 
 
-{\scriptsize $$ p(\mathbf{y}|\mathbf{h}; \mathbf{W},\mathbf{b}) 
+{\small $$ p(\mathbf{y}|\mathbf{h}; \mathbf{W},\mathbf{b}) 
 = \frac{\prod_{i=1}^n \exp(\mathbf{W}^T_{y_{i-1},y_{i}}\mathbf{h} + \mathbf{b}_{y_{i-1},y_{i}})}
 { \sum_{\mathbf{y'} \in \mathcal{Y}(\mathbf{h})} \prod_{i=1}^n \exp(\mathbf{W}^T_{y'_{i-1},y'_{i}}\mathbf{h} + \mathbf{b}_{y'_{i-1},y'_{i}})} 
-$$
-}
-
+$$}\\
+\newpage
+\noindent
 , where $\mathbf W$ and $\mathbf b$ are the two weight matrices and the subscription indicates that we extract the weight vector for the given label pair $(y_{i-1},y_i)$. 
 
 To train the CRF layer, we use the classic maximum conditional likelihood estimation to train our model. 
