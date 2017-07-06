@@ -4,10 +4,10 @@
 \subsection{Parameter Initialization}
 For word-level word representation (i.e. the lookup table), 
 we utilize the pretrained word embeddings from glove\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}}.
-For all out-of-vocabulary words, we assign their embeddings by randomly sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}~\right]$, where \textit{dim} is the dimension of word embeddings. The random initialization of character embeddings are in the same way.
+For all out-of-vocabulary words, we assign their embeddings by randomly sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}~\right]$, where \textit{dim} is the dimension of word embeddings, suggested by He et al.(\citeyear{DBLP:conf/iccv/HeZRS15}). The random initialization of character embeddings are in the same way.
 We randomly initialize the weight matrices $\mathbf{W}$ and $\mathbf{b}$ with uniform samples from 
 $\left[-\sqrt{\frac{6}{r+c}}, +\sqrt{\frac{6}{r+c}}~\right]$, 
-$r$ and $c$ are the number of the rows and columns, following Glorot and Bengio (2010), and all LSTM hidden states are initialized to be zero, following . 
+$r$ and $c$ are the number of the rows and columns, following Glorot and Bengio(\citeyear{DBLP:journals/jmlr/GlorotB10}), and all LSTM hidden states are initialized to be zero except for the bias for the forget gate is initialized to be 1.0 , following Jozefowicz et al.(\citeyear{DBLP:conf/icml/JozefowiczZS15}) 
 
 
 \subsection{Hyper Parameter Tuning}
@@ -19,4 +19,4 @@ As for learning method, we compare the traditional SGD and Adam.
 We found that Adam performs always better than SGD, and we tune the learning rate form \{1e-2,\textbf{1e-3},1e-4\}.
 
 \subsection{Comparison} 
-
+We test 
