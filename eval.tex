@@ -4,11 +4,12 @@ In this section, we discuss the implementation details of our system such as hyp
 \footnote{The detailed description of the evaluation metric and the dataset are shown in \url{http://noisy-text.github.io/2017/emerging-rare-entities.html}}
 \subsection{Parameter Initialization}
 For word-level word representation (i.e. the lookup table), 
-we utilize the pretrained word embeddings from glove\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}}.
+we utilize the pretrained word embeddings\footnote{\url{http://nlp.stanford.edu/data/glove.twitter.27B.zip}} from GloVe\cite{Pennington2014GloveGV}.
 For all out-of-vocabulary words, we assign their embeddings by randomly sampling from range $\left[-\sqrt{\frac{3}{\text{dim}}}, +\sqrt{\frac{3}{\text{dim}}}~\right]$, where \textit{dim} is the dimension of word embeddings, suggested by He et al.(\citeyear{DBLP:conf/iccv/HeZRS15}). The random initialization of character embeddings are in the same way.
 We randomly initialize the weight matrices $\mathbf{W}$ and $\mathbf{b}$ with uniform samples from 
 $\left[-\sqrt{\frac{6}{r+c}}, +\sqrt{\frac{6}{r+c}}~\right]$, 
-$r$ and $c$ are the number of the rows and columns, following Glorot and Bengio(\citeyear{DBLP:journals/jmlr/GlorotB10}), and all LSTM hidden states are initialized to be zero except for the bias for the forget gate is initialized to be 1.0 , following Jozefowicz et al.(\citeyear{DBLP:conf/icml/JozefowiczZS15}) 
+$r$ and $c$ are the number of the rows and columns, following Glorot and Bengio(\citeyear{DBLP:journals/jmlr/GlorotB10}). 
+The weight matrices in LSTM are initialized in the same work while  all LSTM hidden states are initialized to be zero except for the bias for the forget gate is initialized to be 1.0 , following Jozefowicz et al.(\citeyear{DBLP:conf/icml/JozefowiczZS15}).
 
 
 \subsection{Hyper Parameter Tuning}
@@ -20,23 +21,42 @@ As for learning method, we compare the traditional SGD and Adam~\cite{kingma2014
 We found that Adam performs always better than SGD, and we tune the learning rate form \{1e-2,\textbf{1e-3},1e-4\}.
 
 \subsection{Results} 
+To evaluate the effectiveness of each feature in our model, we do the feature ablation experiments and the results are shown in~\tabref{tbl:feature}.
+
+\begin{table}[th]
+	\scriptsize
+	\centering
+	\caption{Feature Ablation}
+	\label{tbl:feature}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Features}                & \textbf{F1 (entity) }   & \textbf{F1 (surface form)} \\ \hline
+		Word            & 37.16         & 34.15            \\ \hline
+		Char(LSTM)+Word              &38.24         & 37.21             \\ \hline
+		POS+Char(LSTM)+Word              & 40.01          & 37.57             \\ \hline
+		{Syntactical+Char(CNN)+Word} & { 40.12} & { 37.52   }    \\ \hline 
+		\textbf{Syntactical+Char(LSTM)+Word} & \textbf{ 40.42} & \textbf{ 37.62   }    \\ \hline 
+		
+	\end{tabular}
+\end{table}
+
 In comparison with other participants, the results are shown in~\tabref{tbl:compare}.
 
 \begin{table}[th]
-	\small
+	\scriptsize
 	\centering
 	\caption{Result comparison}
 	\label{tbl:compare}
 	\begin{tabular}{|c|c|c|}
 		\hline
 		\textbf{Team}                & \textbf{F1 (entity) }   & \textbf{F1 (surface form)} \\ \hline
-		MIC-CIS             & 36.90          & 50.38             \\ \hline
-		Arcada              & 40.09          & 56.60             \\ \hline
-		Drexel-CCI          & 26.81          & 59.92             \\ \hline
-		\textbf{Ours} & \textbf{41.22} & \textbf{60.00}    \\ \hline
-		FLYTXT              & 38.10          & 57.64             \\ \hline
-		SpinningBytes       & 41.76          & 57.98             \\ \hline
-		UH-RiTUAL           & \textbf{41.90   }       & \textbf{66.59 }            \\ \hline
+		Drexel-CCI          &  26.30         & 25.26            \\ \hline
+		MIC-CIS             & 37.06         & 34.25            \\ \hline
+		FLYTXT              &38.35         & 36.31             \\ \hline
+		Arcada              & 39.98          & 37.77             \\ \hline
+		\textbf{Ours} & \textbf{ 40.42} & \textbf{ 37.62   }    \\ \hline
+		SpinningBytes       & 40.78       &  39.33          \\ \hline
+		UH-RiTUAL           & \textbf{  41.86   }       & \textbf{ 40.24 }            \\ \hline
 	\end{tabular}
 \end{table}
 

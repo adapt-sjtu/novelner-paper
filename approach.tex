@@ -17,7 +17,7 @@ The hidden states are considered as the feature vectors of the words by the fina
  
 \subsection{Comprehensive Word Representations}
 In this subsection, we present our proposed comprehensive word representations. 
-We first build character-level word representations from the embeddings of every characters in each word using a bidirectional LSTM. 
+We first build character-level word representations from the embeddings of every character in each word using a bidirectional LSTM. 
 Then we further incorporate the final word representation with the embedding of the syntactical information of each token, such as the part-of-speech tag, the dependency role, the word position in the sentence and the head position. 
 Finally, we combine the original word embeddings with the above two parts to obtain the final comprehensive word representations.
 
@@ -86,7 +86,7 @@ $$\mathbf{h_i} = \left[~\overleftarrow{\mathbf{h_i}}~;~\overrightarrow{\mathbf{h
 
 
 \subsection{CRF Layer}
-It is almost always beneficial to consider the correlations between two between current label and neighboring labels since there are many syntactical constrains in natural language sentences. 
+It is almost always beneficial to consider the correlations between the current label and neighboring labels since there are many syntactical constrains in natural language sentences. 
 For example, I-PERSON will never follow a B-GROUP. 
 If we simply feed the above mentioned hidden states independently to a Softmax layer to predict the labels, then such constrains will not be more likely to be broken. 
 Linear-chain Conditional Random Field is the most popular way to control the structure prediction and its basic idea is to use a series of potential function to approximate the conditional probability of the output label sequence given the input word sequence. 
